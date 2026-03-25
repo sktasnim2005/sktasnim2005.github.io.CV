@@ -162,9 +162,8 @@
 <div class="page">
 
   <aside class="sidebar">
-    <div class="photo-wrap" onclick="document.getElementById('photoInput').click()" title="Click to upload photo">
-      <img id="cvPhoto" src="photo.png" alt="Profile" onerror="this.style.display='none'">
-      <div class="photo-overlay"><span>📷</span><span>Change<br>Photo</span></div>
+    <div class="photo-wrap">
+      <img id="cvPhoto" src="photo.png" alt="Profile">
     </div>
     <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(event)">
     <div class="photo-hint">Click photo to change</div>
