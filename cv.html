@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV – SK. Tasnim Ur Rahman</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --dark: #1a1a1a;
+    --mid: #3a3a3a;
+    --muted: #888;
+    --accent: #2e5c8a;
+    --accent-light: #4a7fb5;
+    --bg-left: #1e2d3d;
+    --bg-page: #f4f2ef;
+    --white: #ffffff;
+    --sidebar-w: 220px;
+  }
+
+  body {
+    background: #d0cbc4;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+
+  /* ── PRINT / A4 WRAPPER ── */
+  .page {
+    width: 794px;
+    min-height: 1123px;
+    background: var(--bg-page);
+    display: flex;
+    box-shadow: 0 8px 40px rgba(0,0,0,.35);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── LEFT SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-left);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 36px 18px 24px;
+    flex-shrink: 0;
+  }
+
+  /* Photo */
+  .photo-wrap {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255,255,255,.25);
+    margin-bottom: 6px;
+    position: relative;
+    cursor: pointer;
+    background: #2a3f55;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,.5);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity .2s;
+    font-size: 10px;
+    text-align: center;
+    gap: 4px;
+    color: #fff;
+  }
+  .photo-wrap:hover .photo-overlay { opacity: 1; }
+  .photo-placeholder-icon { font-size: 28px; margin-bottom: 4px; color: rgba(255,255,255,.4); }
+  #photoInput { display: none; }
+  .photo-hint { font-size: 9px; color: rgba(255,255,255,.45); margin-bottom: 20px; margin-top: 4px; }
+
+  /* Sidebar section label */
+  .s-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 2px;
+    align-self: stretch;
+    text-align: center;
+    margin-bottom: 14px;
+    margin-top: 18px;
+  }
+
+  /* Contact items */
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 9.5px; color: rgba(255,255,255,.8);
+    margin-bottom: 9px; width: 100%;
+    line-height: 1.4;
+  }
+  .contact-item .icon { font-size: 10px; margin-top: 1px; flex-shrink: 0; }
+
+  /* Education items */
+  .edu-item { width: 100%; margin-bottom: 12px; }
+  .edu-course { font-size: 9px; color: rgba(255,255,255,.6); }
+  .edu-place { font-size: 9.5px; font-weight: 600; color: rgba(255,255,255,.9); line-height: 1.3; }
+  .edu-year { font-size: 8.5px; color: rgba(255,255,255,.45); margin-top: 1px; }
+
+  /* Skills */
+  .skill-tag {
+    display: inline-block; background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15); border-radius: 2px;
+    font-size: 8.5px; color: rgba(255,255,255,.75);
+    padding: 2px 7px; margin: 2px;
+  }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 0; }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    flex: 1;
+    padding: 36px 32px 24px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .cv-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    line-height: 1.05;
+    color: var(--dark);
+    letter-spacing: -0.5px;
+  }
+  .cv-title {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 5px;
+    margin-bottom: 16px;
+  }
+
+  /* Section headings */
+  .section-heading {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--dark);
+    border-bottom: 1.5px solid var(--dark);
+    padding-bottom: 4px;
+    margin-bottom: 14px;
+    margin-top: 18px;
+  }
+
+  /* Summary */
+  .summary-text {
+    font-size: 9.5px;
+    line-height: 1.65;
+    color: #555;
+  }
+
+  /* Work / Experience */
+  .exp-row {
+    display: flex; justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .exp-left { flex: 1; }
+  .exp-title { font-size: 10px; font-weight: 600; color: var(--dark); }
+  .exp-company { font-size: 9px; color: var(--accent); font-weight: 500; margin-top: 1px; }
+  .exp-desc { font-size: 9px; color: #666; line-height: 1.55; margin-top: 3px; }
+  .exp-year { font-size: 9px; color: var(--muted); white-space: nowrap; margin-left: 12px; margin-top: 1px; }
+
+  /* Projects */
+  .proj-row { margin-bottom: 10px; }
+  .proj-title { font-size: 10px; font-weight: 600; color: var(--dark); }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 3px; }
+  .proj-tag {
+    font-size: 7.5px; background: rgba(46,92,138,.1);
+    color: var(--accent); border-radius: 2px;
+    padding: 1px 5px; font-weight: 500;
+  }
+  .proj-desc { font-size: 8.8px; color: #666; line-height: 1.5; margin-top: 2px; }
+
+  /* Achievements */
+  .ach-item { display: flex; gap: 8px; margin-bottom: 7px; align-items: flex-start; }
+  .ach-badge {
+    background: var(--accent); color: #fff;
+    font-size: 7px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 5px; border-radius: 2px;
+    white-space: nowrap; margin-top: 1px; flex-shrink: 0;
+  }
+  .ach-text { font-size: 9px; color: #555; line-height: 1.5; }
+  .ach-text strong { color: var(--dark); }
+
+  /* References */
+  .ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ref-item { }
+  .ref-name { font-size: 10px; font-weight: 700; color: var(--dark); }
+  .ref-role { font-size: 9px; color: var(--accent); }
+  .ref-contact { font-size: 8.5px; color: #777; margin-top: 3px; }
+
+  /* Two-col layout for experience + projects */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+
+  /* Print */
+  @media print {
+    body { background: none; padding: 0; }
+    .page { box-shadow: none; width: 100%; min-height: 100vh; }
+    .photo-overlay, .photo-hint { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+
+    <!-- Photo -->
+    <div class="photo-wrap" onclick="document.getElementById('photoInput').click()" title="Click to upload photo">
+      <img id="cvPhoto" src="https://sktasnim2005.github.io/photo.png" alt="Profile Photo" onerror="this.style.display='none'; document.querySelector('.photo-placeholder-icon').style.display='block'">
+      <div class="photo-overlay">
+        <span>📷</span>
+        <span>Change<br>Photo</span>
+      </div>
+    </div>
+    <input type="file" id="photoInput" accept="image/*" onchange="handlePhoto(event)">
+    <div class="photo-hint">Click photo to change</div>
+
+    <!-- Contact -->
+    <div class="s-label">Contact</div>
+    <div class="contact-item"><span class="icon">📞</span> +8801828285259</div>
+    <div class="contact-item"><span class="icon">✉️</span> sktasnim2005@gmail.com</div>
+    <div class="contact-item"><span class="icon">🔗</span> github.com/sktasnim2005</div>
+    <div class="contact-item"><span class="icon">💼</span> linkedin.com/in/sk-tasnim-ur-rahman</div>
+    <div class="contact-item"><span class="icon">📍</span> Khulna, Bangladesh</div>
+
+    <!-- Education -->
+    <div class="s-label">Education</div>
+    <div class="edu-item">
+      <div class="edu-course">B.Sc. Computer Science & Engineering</div>
+      <div class="edu-place">Northern University of Business & Technology, Khulna</div>
+      <div class="edu-year">2023 – Present · 3rd Year</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-course">Higher Secondary Certificate (HSC)</div>
+      <div class="edu-place">Govt. Sundarban Adarsha College</div>
+      <div class="edu-year">2022 · GPA 5.00 / 5.00</div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-course">Secondary School Certificate (SSC)</div>
+      <div class="edu-place">Lions School & College, Khulna</div>
+      <div class="edu-year">2020 · GPA 5.00 / 5.00</div>
+    </div>
+
+    <!-- Skills -->
+    <div class="s-label">Skills</div>
+    <div class="skills-grid">
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">C++</span>
+      <span class="skill-tag">Java</span>
+      <span class="skill-tag">OpenCV</span>
+      <span class="skill-tag">Flask</span>
+      <span class="skill-tag">Tkinter</span>
+      <span class="skill-tag">NumPy</span>
+      <span class="skill-tag">Pandas</span>
+      <span class="skill-tag">Computer Vision</span>
+      <span class="skill-tag">DSA</span>
+      <span class="skill-tag">OOP</span>
+      <span class="skill-tag">REST APIs</span>
+      <span class="skill-tag">Git</span>
+      <span class="skill-tag">Linux</span>
+      <span class="skill-tag">SQLite</span>
+      <span class="skill-tag">Google Sheets API</span>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- Header -->
+    <div class="cv-name">SK. Tasnim<br>Ur Rahman</div>
+    <div class="cv-title">CSE Student · AI Developer · Problem Solver</div>
+
+    <!-- Summary -->
+    <div class="summary-text">
+      3rd-year Computer Science & Engineering student at NUBTK with a passion for AI and Computer Vision. IUPC Champion (twice), Top 300 finalist in SOLVIO AI Hackathon out of 3,300+ participants. Campus Ambassador across 5 organisations. Perfect academic GPA across SSC & HSC.
+    </div>
+
+    <!-- Leadership / Experience -->
+    <div class="section-heading">Leadership &amp; Experience</div>
+    <div class="two-col">
+      <div>
+        <div class="exp-row">
+          <div class="exp-left">
+            <div class="exp-title">Campus Hero</div>
+            <div class="exp-company">Programming Hero</div>
+            <div class="exp-desc">Organises Code-Along sessions; guides peers through curriculum &amp; career placement.</div>
+          </div>
+          <div class="exp-year">Feb 2026 –<br>Present</div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-left">
+            <div class="exp-title">Campus Coordinator</div>
+            <div class="exp-company">Youth Upskill Network (YUNet)</div>
+            <div class="exp-desc">Leads skill-sharing initiatives; connects students with industry professionals.</div>
+          </div>
+          <div class="exp-year">Jan 2026 –<br>Present</div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-left">
+            <div class="exp-title">Campus Leader</div>
+            <div class="exp-company">Interactive Cares</div>
+            <div class="exp-desc">Led digital-learning campaigns; organised workshops bridging academia &amp; industry.</div>
+          </div>
+          <div class="exp-year">Dec 2025 –<br>Present</div>
+        </div>
+      </div>
+      <div>
+        <div class="exp-row">
+          <div class="exp-left">
+            <div class="exp-title">Campus Ambassador</div>
+            <div class="exp-company">Shohoj Coding</div>
+            <div class="exp-desc">Mentors aspiring developers; promotes coding bootcamps &amp; learning paths.</div>
+          </div>
+          <div class="exp-year">Sep 2025 –<br>Present</div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-left">
+            <div class="exp-title">Campus Ambassador</div>
+            <div class="exp-company">ICT Olympiad Bangladesh</div>
+            <div class="exp-desc">Spearheads promotional campaigns; coordinates awareness &amp; registration drives.</div>
+          </div>
+          <div class="exp-year">Jul 2025 –<br>Present</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="section-heading">Projects</div>
+    <div class="two-col">
+      <div class="proj-row">
+        <div class="proj-title">Face Recognition Attendance System</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">OpenCV</span>
+          <span class="proj-tag">Haar Cascades</span><span class="proj-tag">Google Sheets API</span><span class="proj-tag">SQLite</span>
+        </div>
+        <div class="proj-desc">Real-time automated attendance using computer vision — detects &amp; logs faces with timestamps; integrating cloud reporting via Google Sheets.</div>
+      </div>
+      <div class="proj-row">
+        <div class="proj-title">Python GUI Game Suite</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">Tkinter</span><span class="proj-tag">GUI Design</span>
+        </div>
+        <div class="proj-desc">Three interactive desktop games (Hangman, Number Guess, Quiz) with polished UI, difficulty levels, and score tracking.</div>
+      </div>
+    </div>
+
+    <!-- Achievements -->
+    <div class="section-heading">Achievements</div>
+    <div class="ach-item">
+      <span class="ach-badge">1st</span>
+      <div class="ach-text"><strong>IUPC Senior Group Champion</strong> – Intra University Programming Contest, NUBTK (Aug 2025) · also 1st Place at CSE Fest IUPC (Dec 2025).</div>
+    </div>
+    <div class="ach-item">
+      <span class="ach-badge">Top 300</span>
+      <div class="ach-text"><strong>SOLVIO AI Hackathon Finalist</strong> – Selected from 3,300+ participants (Sheba Platform Limited). Built <em>Oushodh-Shield</em>, an AI solution combating counterfeit medicine in Bangladesh using encrypted QR codes.</div>
+    </div>
+
+    <!-- References -->
+    <div class="section-heading">References</div>
+    <div class="ref-grid">
+      <div class="ref-item">
+        <div class="ref-name">Available on Request</div>
+        <div class="ref-role">Northern University of Business &amp; Technology</div>
+        <div class="ref-contact">Faculty / Academic Supervisor</div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-name">Available on Request</div>
+        <div class="ref-role">Industry / Hackathon Mentor</div>
+        <div class="ref-contact">Professional Reference</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function handlePhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    const img = document.getElementById('cvPhoto');
+    img.src = ev.target.result;
+    img.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+</script>
+</body>
+</html>
